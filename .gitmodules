@@ -1,0 +1,6 @@
+[submodule "tcph-playground/vendor/tpch-dbgen"]
+	path = tcph-playground/vendor/tpch-dbgen
+	url = https://github.com/electrum/tpch-dbgen.git
+[submodule "tcph-playground/vendor/tpchgen-rs"]
+	path = tcph-playground/vendor/tpchgen-rs
+	url = https://github.com/clflushopt/tpchgen-rs.git
