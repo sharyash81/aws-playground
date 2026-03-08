@@ -1,0 +1,55 @@
+# ── Terraform ─────────────────────────────────────────────────────────────────
+**/.terraform/
+**/.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+*.tfstate.*.backup
+terraform.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+crash.log
+crash.*.log
+
+# ── Lambda build artefacts ────────────────────────────────────────────────────
+lambda/*.zip
+
+# ── SSH / TLS keys ────────────────────────────────────────────────────────────
+*.pem
+*.key
+*.p12
+*.pfx
+
+# ── Python ────────────────────────────────────────────────────────────────────
+.venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ── Node.js ───────────────────────────────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ── Test / temp output ────────────────────────────────────────────────────────
+/tmp/
+*.log
+lambda_manager_results.json
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
