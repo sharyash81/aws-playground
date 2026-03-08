@@ -9,19 +9,19 @@ def run(cmd: list[str], cwd: str | None = None) -> None:
     subprocess.check_call(cmd, cwd=cwd)
 
 
+def ensure_repo_present(repo_dir: str, marker: str, name: str) -> None:
+    marker_path = os.path.join(repo_dir, marker)
+    if os.path.exists(marker_path):
+        return
+    raise FileNotFoundError(
+        f"{name} source not found at {repo_dir}. "
+        "Initialize submodules first: git submodule update --init --recursive"
+    )
+
+
 def build_tpch_dbgen(repo_dir: str) -> None:
     """Build traditional C-based tpch-dbgen"""
-    os.makedirs(os.path.dirname(repo_dir), exist_ok=True)
-
-    if not os.path.exists(repo_dir):
-        run([
-            "git",
-            "clone",
-            "--depth",
-            "1",
-            "https://github.com/electrum/tpch-dbgen.git",
-            repo_dir,
-        ])
+    ensure_repo_present(repo_dir, "makefile", "tpch-dbgen")
 
     makefile = os.path.join(repo_dir, "makefile")
     if not os.path.exists(makefile):
@@ -36,17 +36,7 @@ def build_tpch_dbgen(repo_dir: str) -> None:
 
 def build_tpchgen_rs(repo_dir: str) -> None:
     """Build faster Rust-based tpchgen-rs"""
-    os.makedirs(os.path.dirname(repo_dir), exist_ok=True)
-
-    if not os.path.exists(repo_dir):
-        run([
-            "git",
-            "clone",
-            "--depth",
-            "1",
-            "https://github.com/clflushopt/tpchgen-rs.git",
-            repo_dir,
-        ])
+    ensure_repo_present(repo_dir, "Cargo.toml", "tpchgen-rs")
 
     cargo_toml = os.path.join(repo_dir, "Cargo.toml")
     if not os.path.exists(cargo_toml):

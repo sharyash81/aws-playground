@@ -1,7 +1,7 @@
 .PHONY: help init plan deploy destroy outputs \
 	local-setup local-clean local-gen local-load local-run local-all \
 	local-benchmark \
-	build-tools lambda-gen athena-create athena-smoke pipeline
+	submodules-init build-tools lambda-gen athena-create athena-smoke pipeline
 
 SHELL := /bin/bash
 TF_DIR := terraform
@@ -26,6 +26,7 @@ ATHENA_WG := $(shell terraform -chdir=$(TF_DIR) output -raw athena_workgroup_nam
 
 help:
 	@echo "TPC-H playground commands"
+	@echo "  make submodules-init"
 	@echo "  make local-setup"
 	@echo "  make build-tools"
 	@echo "  make local-all SF=1 GEN_TOOL=tpchgen-rs"
@@ -53,7 +54,10 @@ local-setup:
 	source $(VENV)/bin/activate && pip install --upgrade pip
 	source $(VENV)/bin/activate && pip install -r requirements.txt
 
-build-tools:
+submodules-init:
+	git submodule update --init --recursive
+
+build-tools: submodules-init
 	source $(VENV)/bin/activate && python3 $(SCRIPTS)/build_dbgen.py --tool both --prepare-lambda
 
 local-clean:

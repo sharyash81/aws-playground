@@ -23,6 +23,7 @@ Configurable TPC-H workflows for:
 ## Local Workflow
 
 ```bash
+make submodules-init
 make local-setup
 make build-tools
 make local-all SF=1 GEN_TOOL=tpchgen-rs
@@ -49,9 +50,13 @@ Output report:
 1) Build tools and prepare Lambda binaries:
 
 ```bash
+make submodules-init
 make local-setup
 make build-tools
 ```
+
+Vendor tool sources are managed as Git submodules (`vendor/tpch-dbgen`, `vendor/tpchgen-rs`).
+If you clone without `--recurse-submodules`, run `make submodules-init` before building.
 
 2) Deploy AWS resources:
 
